@@ -33,7 +33,7 @@ router.get("/callback", (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      return res.redirect("/login");
+      return res.redirect("/logout");
     }
     req.logIn(user, (err) => {
       if (err) {
@@ -49,7 +49,7 @@ router.get("/callback", (req, res, next) => {
 router.get("/logout", (req, res) => {
   req.logOut();
 
-  let returnTo = req.protocol + "://" + req.hostname;
+  let returnTo = req.protocol + "://" + process.env.HOSTNAME;
   const port = req.connection.localPort;
 
   if (port !== undefined && port !== 80 && port !== 443) {
